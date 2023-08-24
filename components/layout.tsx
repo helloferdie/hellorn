@@ -1,19 +1,11 @@
-import {SafeAreaView, StatusBar, ScrollView, View} from "react-native";
+import { SafeAreaView } from "react-native";
 
-export function LayoutDefault(props: {children: React.ReactNode}) {
+export function LayoutDefault(props: { children: React.ReactNode }) {
+  const backgroundStyle = "bg-white";
+
   return (
-    <SafeAreaView>
-      <StatusBar />
-      <ScrollView>
-        <View
-          style={{
-            flex: 1,
-            justifyContent: "center",
-            alignItems: "center",
-          }}>
-          {props.children}
-        </View>
-      </ScrollView>
+    <SafeAreaView className={`flex-1 ${backgroundStyle}`}>
+      {props.children}
     </SafeAreaView>
   );
 }
