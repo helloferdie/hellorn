@@ -2,7 +2,8 @@
 
 const styles = {
   view: {
-    padded: "px-4 py-4",
+    padded: "p-4",
+    shrink: "mt-4 mx-4",
   },
   button: {
     primary: "border-transparent bg-primary-600",

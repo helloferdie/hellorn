@@ -9,7 +9,7 @@ interface ButtonProps extends PressableProps {
 export function Button({ label, variant, ...props }: ButtonProps) {
   return (
     <Pressable
-      className={`py-2 px-6 mb-2 ${styles.button[variant]}`}
+      className={`py-2 px-6 mb-2 rounded-lg ${styles.button[variant]}`}
       {...props}
     >
       <Text

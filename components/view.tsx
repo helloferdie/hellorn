@@ -5,6 +5,7 @@ interface ViewProps {
   style?: string;
   fullwidth?: boolean;
   padded?: boolean;
+  shrink?: boolean;
   children: React.ReactNode;
 }
 
@@ -12,6 +13,7 @@ function generateClassName(props: ViewProps): string {
   const cls: string[] = [];
   props.fullwidth ? cls.push("w-full") : null;
   props.padded ? cls.push(styles.view.padded) : null;
+  props.shrink ? cls.push(styles.view.shrink) : null;
   props.style ? cls.push(props.style.trim()) : null;
   return cls.join(" ").trim();
 }

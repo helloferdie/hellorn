@@ -46,6 +46,13 @@ export default function HomeScreen(props: HomeScreenProps) {
       >
         <Text>Details 10</Text>
       </Pressable>
+
+      <Button
+        title="Article"
+        onPress={() => {
+          props.navigation.navigate("article");
+        }}
+      />
     </LayoutDefault>
   );
 }
