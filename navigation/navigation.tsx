@@ -2,12 +2,14 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import HomeScreen from "../screens/home";
 import DetailsScreen from "../screens/details";
-import ArticleScreen from "../screens/article";
+import ArticleScreen, { ArticleScreenOpts } from "../screens/article/index";
+import ArticleNewScreen from "../screens/article/new";
 
 export type RootStackParamList = {
   home: undefined;
   details: { itemId: number };
   article: undefined;
+  article_new: { mode: string };
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -28,7 +30,16 @@ export function NavigationStack() {
       <Stack.Screen
         name="article"
         component={ArticleScreen}
-        options={{ title: "Artikel", headerShown: true }}
+        options={ArticleScreenOpts}
+      />
+      <Stack.Screen
+        name="article_new"
+        component={ArticleNewScreen}
+        options={{
+          title: "New Article",
+          headerShown: true,
+          headerBackTitleVisible: false,
+        }}
       />
     </Stack.Navigator>
   );

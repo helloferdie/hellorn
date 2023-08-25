@@ -1,10 +1,16 @@
-import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import { LayoutDefault } from "../components/layout";
-import { RootStackParamList } from "../navigation/navigation";
-import { Text } from "react-native";
-import { ScrollView, View } from "../components/view";
-import Divider from "../components/divider";
+import {
+  NativeStackNavigationOptions,
+  NativeStackScreenProps,
+} from "@react-navigation/native-stack";
+import { LayoutDefault } from "../../components/layout";
+import { RootStackParamList } from "../../navigation/navigation";
+import { Pressable, Text } from "react-native";
+import { ScrollView, View } from "../../components/view";
+import Divider from "../../components/divider";
+import React from "react";
+import PlusCircleIcon from "react-native-heroicons/solid/PlusCircleIcon";
 
+const palette = require("../../styles/palette.ts");
 const articles = [
   {
     date: "24 August 2023",
@@ -18,11 +24,12 @@ const articles = [
     title: "Fluent Python",
     author: "Luciano Ramalho",
     content:
-      "Python’s simplicity lets you become productive quickly, but this often means you aren’t using everything it has to offer. With this hands-on guide, you’ll learn how to write effective, idiomatic Python code by leveraging its best—and possibly most neglected—features. Author Luciano Ramalho takes you through Python’s core language features and libraries, and shows you how to make your code shorter, faster, and more readable at the same time.",
+      "Python's simplicity lets you become productive quickly, but this often means you aren't using everything it has to offer. With this hands-on guide, you’ll learn how to write effective, idiomatic Python code by leveraging its best—and possibly most neglected—features. Author Luciano Ramalho takes you through Python’s core language features and libraries, and shows you how to make your code shorter, faster, and more readable at the same time.",
   },
   {
     date: "24 May 2008",
-    title: "JavaScript: The Good Part",
+    //title:"JavaScript: The Good Part",
+    title: "Javascript The Good Part",
     author: "Douglas Crockford",
     content:
       "Most programming languages contain good and bad parts, but JavaScript has more than its share of the bad, having been developed and released in a hurry before it could be refined. This authoritative book scrapes away these bad features to reveal a subset of JavaScript that's more reliable, readable, and maintainable than the language as a whole—a subset you can use to create truly extensible and efficient code.",
@@ -39,7 +46,25 @@ const articles = [
 
 type ArticleScreenProps = NativeStackScreenProps<RootStackParamList, "article">;
 
-export default function ArticleScreen(props: ArticleScreenProps) {
+export function ArticleScreenOpts({
+  navigation,
+}: ArticleScreenProps): NativeStackNavigationOptions {
+  return {
+    title: "Artikel",
+    headerShown: true,
+    headerRight: () => (
+      <Pressable
+        onPress={() => {
+          navigation.navigate("article_new", { mode: "hehe" });
+        }}
+      >
+        <PlusCircleIcon fill={palette.primary[600]} size={32} />
+      </Pressable>
+    ),
+  };
+}
+
+export default function ArticleScreen(_: ArticleScreenProps) {
   return (
     <LayoutDefault>
       <ScrollView>

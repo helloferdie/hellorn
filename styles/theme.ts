@@ -1,5 +1,3 @@
-// Generate color palette https://uicolors.app/create
-
 const styles = {
   view: {
     padded: "p-4",
