@@ -37,6 +37,7 @@ export function NavigationStack() {
         component={ArticleNewScreen}
         options={{
           title: "New Article",
+          animation: "slide_from_right",
           headerShown: true,
           headerBackTitleVisible: false,
         }}

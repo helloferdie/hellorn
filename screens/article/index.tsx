@@ -4,11 +4,13 @@ import {
 } from "@react-navigation/native-stack";
 import { LayoutDefault } from "../../components/layout";
 import { RootStackParamList } from "../../navigation/navigation";
-import { Pressable, Text } from "react-native";
+import { Pressable, Text, View as RNView } from "react-native";
 import { ScrollView, View } from "../../components/view";
 import Divider from "../../components/divider";
 import React from "react";
 import PlusCircleIcon from "react-native-heroicons/solid/PlusCircleIcon";
+import EllipsisHorizontalIcon from "react-native-heroicons/outline/EllipsisHorizontalIcon";
+import { Button, ButtonIcon } from "../../components/button";
 
 const palette = require("../../styles/palette.ts");
 const articles = [
@@ -64,14 +66,14 @@ export function ArticleScreenOpts({
   };
 }
 
-export default function ArticleScreen(_: ArticleScreenProps) {
+export default function ArticleScreen({ navigation }: ArticleScreenProps) {
   return (
     <LayoutDefault>
       <ScrollView>
         {articles.map((article, i) => (
           <View
             key={i}
-            style="border border-gray-300 bg-white shadow-sm rounded-lg"
+            className="border border-gray-300 bg-white shadow-sm rounded-lg"
             padded
             shrink
           >
@@ -87,6 +89,34 @@ export default function ArticleScreen(_: ArticleScreenProps) {
           </View>
         ))}
       </ScrollView>
+      <View padded>
+        <View className="flex-row space-x-2">
+          <ButtonIcon
+            variant="outlined"
+            onPress={() => {
+              console.log("Drawer");
+            }}
+          >
+            <EllipsisHorizontalIcon color={palette.primary[600]} size={24} />
+          </ButtonIcon>
+
+          <Button
+            className="flex-1"
+            label="Add"
+            variant="primary"
+            onPress={() => {
+              navigation.navigate("article_new", { mode: "132" });
+            }}
+          />
+        </View>
+        <Button
+          label="Add"
+          variant="primary"
+          onPress={() => {
+            navigation.navigate("article_new", { mode: "132" });
+          }}
+        />
+      </View>
     </LayoutDefault>
   );
 }

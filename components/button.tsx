@@ -1,9 +1,12 @@
 import { Pressable, PressableProps, Text } from "react-native";
 import styles from "../styles/theme";
 
-interface ButtonProps extends PressableProps {
-  label: string;
+interface ButtonVariant {
   variant: "primary" | "secondary" | "outlined";
+}
+
+interface ButtonProps extends PressableProps, ButtonVariant {
+  label: string;
 }
 
 export function Button({ label, variant, ...props }: ButtonProps) {
@@ -17,6 +20,21 @@ export function Button({ label, variant, ...props }: ButtonProps) {
       >
         {label}
       </Text>
+    </Pressable>
+  );
+}
+
+interface ButtonIconProps extends PressableProps, ButtonVariant {
+  children?: React.ReactNode;
+}
+
+export function ButtonIcon({ variant, children, ...props }: ButtonIconProps) {
+  return (
+    <Pressable
+      className={`py-2 px-2.5 mb-2 rounded-lg items-center ${styles.button[variant]}`}
+      {...props}
+    >
+      {children}
     </Pressable>
   );
 }
