@@ -19,7 +19,7 @@ function generateClassName(props: ViewProps): string {
   return cls.join(" ").trim();
 }
 
-export function View({ children, className, ...props }: ViewProps) {
+export function View({ children, ...props }: ViewProps) {
   const cls = generateClassName(props);
   return (
     <RNView className={cls} {...props}>

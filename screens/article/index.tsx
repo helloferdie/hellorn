@@ -4,13 +4,15 @@ import {
 } from "@react-navigation/native-stack";
 import { LayoutDefault } from "../../components/layout";
 import { RootStackParamList } from "../../navigation/navigation";
-import { Pressable, Text, View as RNView } from "react-native";
+import { Pressable, Text } from "react-native";
 import { ScrollView, View } from "../../components/view";
 import Divider from "../../components/divider";
-import React from "react";
+import React, { useState } from "react";
 import PlusCircleIcon from "react-native-heroicons/solid/PlusCircleIcon";
 import EllipsisHorizontalIcon from "react-native-heroicons/outline/EllipsisHorizontalIcon";
 import { Button, ButtonIcon } from "../../components/button";
+import { ModalDrawer, ModelDrawerItem } from "../../components/modal";
+import { TextInputDefault } from "../../components/input";
 
 const palette = require("../../styles/palette.ts");
 const articles = [
@@ -30,7 +32,6 @@ const articles = [
   },
   {
     date: "24 May 2008",
-    //title:"JavaScript: The Good Part",
     title: "Javascript The Good Part",
     author: "Douglas Crockford",
     content:
@@ -67,6 +68,8 @@ export function ArticleScreenOpts({
 }
 
 export default function ArticleScreen({ navigation }: ArticleScreenProps) {
+  const [visible, setVisible] = useState(false);
+
   return (
     <LayoutDefault>
       <ScrollView>
@@ -82,7 +85,9 @@ export default function ArticleScreen({ navigation }: ArticleScreenProps) {
               By {article.author}
             </Text>
             <Divider />
-            <Text numberOfLines={2}>{article.content}</Text>
+            <Text numberOfLines={2} className="text-sm">
+              {article.content}
+            </Text>
             <Text className="pt-2 text-xs italic text-right text-gray-600">
               {article.date}
             </Text>
@@ -94,7 +99,7 @@ export default function ArticleScreen({ navigation }: ArticleScreenProps) {
           <ButtonIcon
             variant="outlined"
             onPress={() => {
-              console.log("Drawer");
+              setVisible(true);
             }}
           >
             <EllipsisHorizontalIcon color={palette.primary[600]} size={24} />
@@ -109,14 +114,25 @@ export default function ArticleScreen({ navigation }: ArticleScreenProps) {
             }}
           />
         </View>
-        <Button
-          label="Add"
-          variant="primary"
-          onPress={() => {
-            navigation.navigate("article_new", { mode: "132" });
-          }}
-        />
       </View>
+
+      <ModalDrawer
+        visible={visible}
+        title="Opsi tambahan"
+        showClose
+        onClose={() => {
+          setVisible(false);
+        }}
+      >
+        <ModelDrawerItem>
+          <Text>Download excel</Text>
+        </ModelDrawerItem>
+        <Divider />
+        <ModelDrawerItem>
+          <Text>Kirim email</Text>
+          <TextInputDefault />
+        </ModelDrawerItem>
+      </ModalDrawer>
     </LayoutDefault>
   );
 }
