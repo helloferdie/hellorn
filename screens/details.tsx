@@ -4,7 +4,7 @@ import { LayoutDefault } from "../components/layout";
 import { useEffect } from "react";
 import { TextInputDefault } from "../components/input";
 import { Button } from "../components/button";
-import { ScrollView, View } from "../components/view";
+import { KeyboardAwareScrollView, View } from "../components/view";
 
 type DetailsScreenProps = NativeStackScreenProps<RootStackParamList, "details">;
 
@@ -17,11 +17,11 @@ export default function DetailsScreen(props: DetailsScreenProps) {
 
   return (
     <LayoutDefault>
-      <ScrollView padded>
+      <KeyboardAwareScrollView padded>
         {[...Array(15)].map((_, i) => (
-          <TextInputDefault key={i} label="My first name" value="" />
+          <TextInputDefault key={i} label={`My first name ${i}`} value="" />
         ))}
-      </ScrollView>
+      </KeyboardAwareScrollView>
       <View padded>
         <Button label="Save" variant="primary" />
         <Button label="Copy" variant="secondary" />

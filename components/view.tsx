@@ -4,14 +4,20 @@ import {
   ViewProps as RNViewProps,
 } from "react-native";
 import styles from "../styles/theme";
+import {
+  KeyboardAwareScrollView as RNKeyboardAwareScrollView,
+  KeyboardAwareScrollViewProps as RNKeyboardAwareScrollViewProps,
+} from "react-native-keyboard-aware-scroll-view";
 
-interface ViewProps extends RNViewProps {
+interface BaseProps {
   fullwidth?: boolean;
   padded?: boolean;
   shrink?: boolean;
 }
 
-function generateClassName(props: ViewProps): string {
+interface ViewProps extends RNViewProps, BaseProps {}
+
+function generateClassName<T extends BaseProps>(props: T): string {
   const cls: string[] = [];
   props.fullwidth ? cls.push("w-full") : null;
   props.padded ? cls.push(styles.view.padded) : null;
@@ -35,5 +41,22 @@ export function ScrollView({ children, ...props }: ViewProps) {
       {children}
       <RNView className="h-2" />
     </RNScrollView>
+  );
+}
+
+interface KeyboardAwareScrollViewProps
+  extends RNKeyboardAwareScrollViewProps,
+    BaseProps {}
+
+export function KeyboardAwareScrollView({
+  children,
+  ...props
+}: KeyboardAwareScrollViewProps) {
+  const cls = generateClassName(props);
+  return (
+    <RNKeyboardAwareScrollView className={cls} {...props}>
+      {children}
+      <RNView className="h-2" />
+    </RNKeyboardAwareScrollView>
   );
 }
