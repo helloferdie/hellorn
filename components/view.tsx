@@ -39,7 +39,6 @@ export function ScrollView({ children, ...props }: ViewProps) {
   return (
     <RNScrollView className={cls} {...props}>
       {children}
-      <RNView className="h-2" />
     </RNScrollView>
   );
 }
@@ -56,7 +55,6 @@ export function KeyboardAwareScrollView({
   return (
     <RNKeyboardAwareScrollView className={cls} {...props}>
       {children}
-      <RNView className="h-2" />
     </RNKeyboardAwareScrollView>
   );
 }

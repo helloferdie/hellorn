@@ -11,7 +11,7 @@ const styles = {
   buttonText: {
     primary: "text-white",
     secondary: "text-white",
-    outlined: "text-gray-700",
+    outlined: "text-primary-600",
   },
 };
 

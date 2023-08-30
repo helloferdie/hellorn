@@ -8,7 +8,7 @@ import {
   SafeAreaView,
   Text,
 } from "react-native";
-import { View } from "./view";
+import { KeyboardAwareScrollView, View } from "./view";
 import XMarkIcon from "react-native-heroicons/outline/XMarkIcon";
 
 export function ModalDrawer(props: {
@@ -48,36 +48,43 @@ export function ModalDrawer(props: {
     <Modal transparent visible={visible} animationType="slide" onShow={fadeIn}>
       <SafeAreaView className="flex-1 transparent">
         <Animated.View
-          className={`flex flex-1 ${
-            overlayColor ? overlayColor : "bg-gray-700"
+          className={`flex flex-1 absolute top-0 w-full h-full ${
+            overlayColor ? overlayColor : "bg-black"
           }`}
           style={{
             opacity: fadeAnim,
           }}
+        />
+        <KeyboardAwareScrollView
+          className="flex flex-1"
+          // eslint-disable-next-line react-native/no-inline-styles
+          contentContainerStyle={{
+            flex: 1,
+            justifyContent: "flex-end",
+          }}
         >
           <Pressable className="flex-1" onPress={fadeOut} />
-        </Animated.View>
-        <View className="absolute bottom-0 left-0 right-0 pb-10 rounded-t-xl bg-white border border-gray-300">
-          {title || showClose ? (
-            <View padded className="pb-6 flex-row justify-end">
-              {title && (
-                <Text className="text-lg font-extrabold flex-1">
-                  {title !== "" ? title : "Title"}
-                </Text>
-              )}
+          <View className="rounded-t-xl bg-white pb-4 border border-b-0 border-gray-300">
+            {title || showClose ? (
+              <View padded className="pb-6 flex-row justify-end">
+                {title && (
+                  <Text className="text-lg font-extrabold flex-1">
+                    {title !== "" ? title : "Title"}
+                  </Text>
+                )}
 
-              {showClose && (
-                <Pressable onPress={fadeOut}>
-                  <XMarkIcon color={"black"} />
-                </Pressable>
-              )}
-            </View>
-          ) : (
-            <View className="py-3" />
-          )}
-
-          {children}
-        </View>
+                {showClose && (
+                  <Pressable onPress={fadeOut}>
+                    <XMarkIcon color={"black"} />
+                  </Pressable>
+                )}
+              </View>
+            ) : (
+              <View className="py-3" />
+            )}
+            <View>{children}</View>
+          </View>
+        </KeyboardAwareScrollView>
       </SafeAreaView>
     </Modal>
   );
