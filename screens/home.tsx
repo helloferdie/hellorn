@@ -53,6 +53,13 @@ export default function HomeScreen(props: HomeScreenProps) {
           props.navigation.navigate("article");
         }}
       />
+
+      <Button
+        title="Login "
+        onPress={() => {
+          props.navigation.navigate("login");
+        }}
+      />
     </LayoutDefault>
   );
 }

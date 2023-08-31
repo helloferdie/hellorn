@@ -4,9 +4,11 @@ import HomeScreen from "../screens/home";
 import DetailsScreen from "../screens/details";
 import ArticleScreen, { ArticleScreenOpts } from "../screens/article/index";
 import ArticleNewScreen from "../screens/article/new";
+import LoginScreen from "../screens/login";
 
 export type RootStackParamList = {
   home: undefined;
+  login: undefined;
   details: { itemId: number };
   article: undefined;
   article_new: { mode: string };
@@ -41,6 +43,11 @@ export function NavigationStack() {
           headerShown: true,
           headerBackTitleVisible: false,
         }}
+      />
+      <Stack.Screen
+        name="login"
+        component={LoginScreen}
+        options={{ title: "Login", headerShown: false }}
       />
     </Stack.Navigator>
   );
