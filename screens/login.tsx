@@ -5,6 +5,8 @@ import { RootStackParamList } from "../navigation/navigation";
 import { useEffect, useState } from "react";
 import auth, { FirebaseAuthTypes } from "@react-native-firebase/auth";
 import { GoogleSignin } from "@react-native-google-signin/google-signin";
+import { TextInputDefault } from "../components/input";
+import { View } from "../components/view";
 
 GoogleSignin.configure({
   webClientId:
@@ -31,10 +33,34 @@ export default function LoginScreen(props: LoginScreenProps) {
   const [initializing, setInitializing] = useState(true);
   const [user, setUser] = useState<FirebaseAuthTypes.User | null>(null);
 
+  // If null, no SMS has been sent
+  const [confirm, setConfirm] =
+    useState<FirebaseAuthTypes.ConfirmationResult | null>(null);
+
+  // verification code (OTP - One-Time-Passcode)
+  const [phone, setPhone] = useState("");
+  const [code, setCode] = useState("");
+
   // Handle user state changes
   function onAuthStateChanged(user: FirebaseAuthTypes.User | null) {
     setUser(user);
     if (initializing) setInitializing(false);
+  }
+
+  // Handle the button press
+  async function signInWithPhoneNumber() {
+    const confirmation = await auth().signInWithPhoneNumber(phone);
+    setConfirm(confirmation);
+  }
+
+  async function confirmCode() {
+    if (confirm) {
+      try {
+        await confirm.confirm(code);
+      } catch (error) {
+        console.log("Invalid code.");
+      }
+    }
   }
 
   useEffect(() => {
@@ -47,23 +73,51 @@ export default function LoginScreen(props: LoginScreenProps) {
   if (!user) {
     return (
       <LayoutDefault>
-        <Text>Login</Text>
+        <View padded>
+          <Text>Login</Text>
 
-        <Button
-          title="Google Sign-In"
-          onPress={() =>
-            onGoogleButtonPress().then(() =>
-              console.log("Signed in with Google!")
-            )
-          }
-        />
+          {confirm ? (
+            <>
+              <TextInputDefault
+                label="OTP Code"
+                keyboardType="phone-pad"
+                value={code}
+                onChangeText={setCode}
+              />
+              <Button title="Submit OTP" onPress={confirmCode} />
+            </>
+          ) : (
+            <>
+              <TextInputDefault
+                label="Phone"
+                keyboardType="phone-pad"
+                value={phone}
+                onChangeText={setPhone}
+              />
+
+              <Button
+                title="Login with phone"
+                onPress={signInWithPhoneNumber}
+              />
+            </>
+          )}
+
+          <Button
+            title="Google Sign-In"
+            onPress={() =>
+              onGoogleButtonPress().then(() =>
+                console.log("Signed in with Google!")
+              )
+            }
+          />
+        </View>
       </LayoutDefault>
     );
   }
 
   return (
     <LayoutDefault>
-      <Text>Welcome {user.email}</Text>
+      <Text>Welcome {user.email ? user.email : user.phoneNumber}</Text>
 
       <Button
         title="Logout"
