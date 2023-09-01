@@ -1,5 +1,6 @@
 apply plugin: "com.android.application"
 apply plugin: "com.facebook.react"
+apply plugin: "com.google.gms.google-services"
 
 /**
  * This is the configuration block to customize your React Native Android app.
@@ -118,6 +119,12 @@ dependencies {
     } else {
         implementation jscFlavor
     }
+
+    // RNGoogleSignIn
+    implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.0.0' 
 }
 
 apply from: file("../../node_modules/@react-native-community/cli-platform-android/native_modules.gradle"); applyNativeModulesAppBuildGradle(project)
+
+// RNGoogleSignIn
+apply plugin: 'com.google.gms.google-services'
