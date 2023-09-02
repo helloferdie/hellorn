@@ -80,7 +80,7 @@ export default function LoginScreen(props: LoginScreenProps) {
             <>
               <TextInputDefault
                 label="OTP Code"
-                keyboardType="phone-pad"
+                keyboardType="number-pad"
                 value={code}
                 onChangeText={setCode}
               />
