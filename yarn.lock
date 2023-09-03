@@ -2339,9 +2339,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@react-native-firebase/app@npm:^18.3.1":
-  version: 18.3.1
-  resolution: "@react-native-firebase/app@npm:18.3.1"
+"@react-native-firebase/app@npm:^18.3.2":
+  version: 18.3.2
+  resolution: "@react-native-firebase/app@npm:18.3.2"
   dependencies:
     opencollective-postinstall: ^2.0.1
     superstruct: ^0.6.2
@@ -2352,22 +2352,31 @@ __metadata:
   peerDependenciesMeta:
     expo:
       optional: true
-  checksum: 24b59ee26dcf745c48b4aaf80926ea1bd3e571c98075de8a7b54f53be7dc19b01b1ba556de8b1aa6a13719200ade7a7819c39ea9025399174a30e3059e857415
+  checksum: d6be1c1dec448436bbff6f3f7f393044c0622ba5ff5d7274aa257765705c763a45cb4306968d63874eb21436b6ea1bec74264c02a8a6fd7a46f23e7a8c1c60f3
   languageName: node
   linkType: hard
 
-"@react-native-firebase/auth@npm:^18.3.1":
-  version: 18.3.1
-  resolution: "@react-native-firebase/auth@npm:18.3.1"
+"@react-native-firebase/auth@npm:^18.3.2":
+  version: 18.3.2
+  resolution: "@react-native-firebase/auth@npm:18.3.2"
   dependencies:
-    plist: ^3.0.5
+    plist: ^3.1.0
   peerDependencies:
-    "@react-native-firebase/app": 18.3.1
+    "@react-native-firebase/app": 18.3.2
     expo: ">=47.0.0"
   peerDependenciesMeta:
     expo:
       optional: true
-  checksum: 351e4dc47bcd32217773a34843edc2f34bea4e03a41595ea235130fcc2f2c66643ed72c8009b5c9bfd59cbf6cef889b9d12d15ec5fa4194b88355ed1568e0fb1
+  checksum: e55379b5bb23d7d1509de82995bb2361ca50f4a812185ab0b930c0848636fccc1837f69a028a9ababc536d10dbb852a417a9da2db56adae38c9ab00aceaf1545
+  languageName: node
+  linkType: hard
+
+"@react-native-firebase/messaging@npm:^18.3.2":
+  version: 18.3.2
+  resolution: "@react-native-firebase/messaging@npm:18.3.2"
+  peerDependencies:
+    "@react-native-firebase/app": 18.3.2
+  checksum: ec9ec6721d956e47389c295ca91762bb844ec398d1efcd862c3a8c113a6bcc7572902d4e83aed137537cb73f1e862178ded2bf12c67483b43d80e1cf46c419ea
   languageName: node
   linkType: hard
 
@@ -5474,8 +5483,9 @@ __metadata:
     "@babel/core": ^7.20.0
     "@babel/preset-env": ^7.20.0
     "@babel/runtime": ^7.20.0
-    "@react-native-firebase/app": ^18.3.1
-    "@react-native-firebase/auth": ^18.3.1
+    "@react-native-firebase/app": ^18.3.2
+    "@react-native-firebase/auth": ^18.3.2
+    "@react-native-firebase/messaging": ^18.3.2
     "@react-native-google-signin/google-signin": ^10.0.1
     "@react-native/eslint-config": ^0.72.2
     "@react-native/metro-config": ^0.72.11
@@ -5493,6 +5503,7 @@ __metadata:
     react-native: 0.72.4
     react-native-heroicons: ^3.2.0
     react-native-keyboard-aware-scroll-view: ^0.9.5
+    react-native-permissions: ^3.9.0
     react-native-safe-area-context: ^4.7.1
     react-native-screens: ^3.24.0
     react-native-svg: ^13.13.0
@@ -8537,7 +8548,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"plist@npm:^3.0.5":
+"plist@npm:^3.1.0":
   version: 3.1.0
   resolution: "plist@npm:3.1.0"
   dependencies:
@@ -8879,6 +8890,20 @@ __metadata:
   peerDependencies:
     react-native: ">=0.48.4"
   checksum: 5eec2aedb886213dfed4c8428a443b565dce80ba9fcf5897171e4c8829d4dd64c5011ac004d93f29adfc83ad6f88c2838d1a5b45255dc4a49bd1c0a169245800
+  languageName: node
+  linkType: hard
+
+"react-native-permissions@npm:^3.9.0":
+  version: 3.9.0
+  resolution: "react-native-permissions@npm:3.9.0"
+  peerDependencies:
+    react: ">=16.13.1"
+    react-native: ">=0.63.3"
+    react-native-windows: ">=0.62.0"
+  peerDependenciesMeta:
+    react-native-windows:
+      optional: true
+  checksum: 4c08edb5fbddb8a927e32cf3cb7d3db255400978336e684ed44b1b263ba6fcdac508eebe27942e374e2c7418af3e4181ad59e4b7d7c159056ec5ba777214ef7a
   languageName: node
   linkType: hard
 

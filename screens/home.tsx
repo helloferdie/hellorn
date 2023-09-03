@@ -60,6 +60,13 @@ export default function HomeScreen(props: HomeScreenProps) {
           props.navigation.navigate("login");
         }}
       />
+
+      <Button
+        title="Permission "
+        onPress={() => {
+          props.navigation.navigate("permission");
+        }}
+      />
     </LayoutDefault>
   );
 }

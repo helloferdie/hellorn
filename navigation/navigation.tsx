@@ -5,10 +5,12 @@ import DetailsScreen from "../screens/details";
 import ArticleScreen, { ArticleScreenOpts } from "../screens/article/index";
 import ArticleNewScreen from "../screens/article/new";
 import LoginScreen from "../screens/login";
+import PermissionScreen from "../screens/permission";
 
 export type RootStackParamList = {
   home: undefined;
   login: undefined;
+  permission: undefined;
   details: { itemId: number };
   article: undefined;
   article_new: { mode: string };
@@ -48,6 +50,11 @@ export function NavigationStack() {
         name="login"
         component={LoginScreen}
         options={{ title: "Login", headerShown: false }}
+      />
+      <Stack.Screen
+        name="permission"
+        component={PermissionScreen}
+        options={{ title: "Permission", headerShown: true }}
       />
     </Stack.Navigator>
   );
