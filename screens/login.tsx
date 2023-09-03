@@ -41,12 +41,6 @@ export default function LoginScreen(props: LoginScreenProps) {
   const [phone, setPhone] = useState("");
   const [code, setCode] = useState("");
 
-  // Handle user state changes
-  function onAuthStateChanged(user: FirebaseAuthTypes.User | null) {
-    setUser(user);
-    if (initializing) setInitializing(false);
-  }
-
   // Handle the button press
   async function signInWithPhoneNumber() {
     const confirmation = await auth().signInWithPhoneNumber(phone);
@@ -64,11 +58,16 @@ export default function LoginScreen(props: LoginScreenProps) {
   }
 
   useEffect(() => {
-    const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
+    const subscriber = auth().onAuthStateChanged((authUser) => {
+      setUser(authUser);
+      setInitializing(false);
+    });
     return subscriber; // unsubscribe on unmount
   }, []);
 
-  if (initializing) return null;
+  if (initializing) {
+    return null;
+  }
 
   if (!user) {
     return (
