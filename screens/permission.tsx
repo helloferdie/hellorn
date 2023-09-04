@@ -9,6 +9,7 @@ import {
   requestNotifications,
 } from "react-native-permissions";
 import { useState } from "react";
+import messaging from "@react-native-firebase/messaging";
 import { Button } from "../components/button";
 import { View } from "../components/view";
 
@@ -20,11 +21,13 @@ type PermissionScreenProps = NativeStackScreenProps<
 export default function PermissionScreen(_: PermissionScreenProps) {
   const [notificationStatus, setNotificationStatus] =
     useState<PermissionStatus | null>(null);
+  const [deviceToken, setDeviceToken] = useState("");
 
   return (
     <LayoutDefault>
       <View padded>
         <Text>Request permission: {notificationStatus}</Text>
+        <Text>Device Token: {deviceToken}</Text>
         <Button
           label="Check notification"
           variant="primary"
@@ -52,6 +55,15 @@ export default function PermissionScreen(_: PermissionScreenProps) {
                 console.log(settings);
               });
             }
+          }}
+        />
+        <Button
+          label="Request device token"
+          variant="primary"
+          onPress={async () => {
+            const token = await messaging().getToken();
+            console.log(token);
+            setDeviceToken(token);
           }}
         />
       </View>

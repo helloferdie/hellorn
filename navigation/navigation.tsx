@@ -1,11 +1,15 @@
 import { NavigationContainer } from "@react-navigation/native";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import {
+  NativeStackScreenProps,
+  createNativeStackNavigator,
+} from "@react-navigation/native-stack";
 import HomeScreen from "../screens/home";
 import DetailsScreen from "../screens/details";
 import ArticleScreen, { ArticleScreenOpts } from "../screens/article/index";
 import ArticleNewScreen from "../screens/article/new";
 import LoginScreen from "../screens/login";
 import PermissionScreen from "../screens/permission";
+import { navigationRef } from "./RootNavigation";
 
 export type RootStackParamList = {
   home: undefined;
@@ -15,6 +19,11 @@ export type RootStackParamList = {
   article: undefined;
   article_new: { mode: string };
 };
+
+// export type RootStackScreenProps<T extends keyof RootStackParamList> =
+//   StackScreenProps<RootStackParamList, T>;
+
+export type RootStackScreenProps = NativeStackScreenProps<RootStackParamList>;
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -62,7 +71,7 @@ export function NavigationStack() {
 
 export default function Navigation() {
   return (
-    <NavigationContainer>
+    <NavigationContainer ref={navigationRef}>
       <NavigationStack />
     </NavigationContainer>
   );
