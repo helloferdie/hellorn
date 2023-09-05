@@ -5,33 +5,46 @@ import { navigate } from "./navigation/RootNavigation";
 import { Alert } from "react-native";
 
 export default function App() {
-  // useEffect(() => {
-  //   // Assume a message-notification contains a "type" property in the data payload of the screen to open
-  //   messaging().onNotificationOpenedApp((remoteMessage) => {
-  //     console.log(
-  //       "Notification caused app to open from background state:",
-  //       remoteMessage.notification
-  //     );
-  //     console.log(remoteMessage);
-  //     // navigation.navigate(remoteMessage.data.type);
-  //   });
+  useEffect(() => {
+    // Assume a message-notification contains a "type" property in the data payload of the screen to open
+    messaging().onNotificationOpenedApp((remoteMessage) => {
+      console.log(
+        "Notification caused app to open from background state:",
+        remoteMessage.notification
+      );
+      if (remoteMessage.data && remoteMessage.data.navigate) {
+        navigate(remoteMessage.data.navigate);
+        Alert.alert("Notification open", JSON.stringify(remoteMessage));
+      }
+      // navigation.navigate(remoteMessage.data.type);
+    });
 
-  //   // Check whether an initial notification is available
-  //   messaging()
-  //     .getInitialNotification()
-  //     .then((remoteMessage) => {
-  //       if (remoteMessage) {
-  //         console.log(
-  //           "Notification caused app to open from quit state:",
-  //           remoteMessage.notification
-  //         );
-  //         // setInitialRoute(remoteMessage.data.type); // e.g. "Settings"
-  //       }
+    // Check whether an initial notification is available
+    messaging()
+      .getInitialNotification()
+      .then((remoteMessage) => {
+        if (remoteMessage) {
+          console.log(
+            "Notification caused app to open from quit state:",
+            remoteMessage.notification
+          );
 
-  //       console.log(remoteMessage);
-  //       // setLoading(false);
-  //     });
-  // }, []);
+          if (remoteMessage.data && remoteMessage.data.navigate) {
+            navigate(remoteMessage.data.navigate);
+            Alert.alert(
+              "Notification open from quit state",
+              JSON.stringify(remoteMessage)
+            );
+          } else {
+          }
+
+          // setInitialRoute(remoteMessage.data.type); // e.g. "Settings"
+        }
+
+        console.log(remoteMessage);
+        // setLoading(false);
+      });
+  }, []);
 
   useEffect(() => {
     // Foreground notification
