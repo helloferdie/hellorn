@@ -10,6 +10,7 @@ import ArticleNewScreen from "../screens/article/new";
 import LoginScreen from "../screens/login";
 import PermissionScreen from "../screens/permission";
 import { navigationRef } from "./RootNavigation";
+import NotificationScreen from "../screens/notification";
 
 export type RootStackParamList = {
   home: undefined;
@@ -18,6 +19,7 @@ export type RootStackParamList = {
   details: { itemId: number };
   article: undefined;
   article_new: { mode: string };
+  notification: undefined;
 };
 
 // export type RootStackScreenProps<T extends keyof RootStackParamList> =
@@ -64,6 +66,11 @@ export function NavigationStack() {
         name="permission"
         component={PermissionScreen}
         options={{ title: "Permission", headerShown: true }}
+      />
+      <Stack.Screen
+        name="notification"
+        component={NotificationScreen}
+        options={{ title: "Notification", animation: "slide_from_right" }}
       />
     </Stack.Navigator>
   );

@@ -9,7 +9,10 @@ export function TextInputDefault({ label, ...props }: InputProps) {
     <View className="mb-4">
       <Text className="font-medium">{label}</Text>
       <TextInput
-        className="mt-2 rounded-md py-2 px-3 border border-gray-400 bg-white focus:border-2 focus:border-primary-600"
+        textAlignVertical={props.multiline ? "top" : undefined}
+        className={`mt-2 rounded-md ${
+          props.multiline ? "py-3" : "py-2"
+        } px-3 border border-gray-400 bg-white focus:border-2 focus:border-primary-600`}
         {...props}
       />
     </View>

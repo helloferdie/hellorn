@@ -4,10 +4,10 @@ import {
 } from "@react-navigation/native-stack";
 import { LayoutDefault } from "../../components/layout";
 import { RootStackParamList } from "../../navigation/navigation";
-import { Pressable, Text } from "react-native";
+import { Pressable, Text, VirtualizedList } from "react-native";
 import { ScrollView, View } from "../../components/view";
 import Divider from "../../components/divider";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import PlusCircleIcon from "react-native-heroicons/solid/PlusCircleIcon";
 import EllipsisHorizontalIcon from "react-native-heroicons/outline/EllipsisHorizontalIcon";
 import { Button, ButtonIcon } from "../../components/button";
@@ -47,6 +47,53 @@ const articles = [
   },
 ];
 
+const largeArticles: typeof articles = [];
+for (let i = 0; i <= 100; i++) {
+  largeArticles.push(...articles);
+}
+
+function VirtualizedListArticles({ list }: { list: typeof articles }) {
+  const getItemCount = () => list.length;
+  const getItem = (data: typeof articles, index: number) => data[index];
+
+  const renderItem = ({
+    item,
+    index,
+  }: {
+    item: (typeof articles)[0];
+    index: number;
+  }) => (
+    <View
+      className="border border-gray-300 bg-white shadow-sm rounded-lg"
+      padded
+      shrink
+    >
+      <Text className="text-xl">
+        {index} - {item.title}
+      </Text>
+      <Text className="text-xs italic text-gray-600">By {item.author}</Text>
+      <Divider />
+      <Text numberOfLines={2} className="text-sm">
+        {item.content}
+      </Text>
+      <Text className="pt-2 text-xs italic text-right text-gray-600">
+        {item.date}
+      </Text>
+    </View>
+  );
+
+  return (
+    <VirtualizedList
+      initialNumToRender={8}
+      data={largeArticles}
+      getItemCount={getItemCount}
+      getItem={getItem}
+      renderItem={renderItem}
+      keyExtractor={(_, index) => index.toString()}
+    />
+  );
+}
+
 type ArticleScreenProps = NativeStackScreenProps<RootStackParamList, "article">;
 
 export function ArticleScreenOpts({
@@ -72,28 +119,7 @@ export default function ArticleScreen({ navigation }: ArticleScreenProps) {
 
   return (
     <LayoutDefault>
-      <ScrollView>
-        {articles.map((article, i) => (
-          <View
-            key={i}
-            className="border border-gray-300 bg-white shadow-sm rounded-lg"
-            padded
-            shrink
-          >
-            <Text className="text-xl">{article.title}</Text>
-            <Text className="text-xs italic text-gray-600">
-              By {article.author}
-            </Text>
-            <Divider />
-            <Text numberOfLines={2} className="text-sm">
-              {article.content}
-            </Text>
-            <Text className="pt-2 text-xs italic text-right text-gray-600">
-              {article.date}
-            </Text>
-          </View>
-        ))}
-      </ScrollView>
+      <VirtualizedListArticles list={largeArticles} />
       <View padded>
         <View className="flex-row space-x-2">
           <ButtonIcon

@@ -55,16 +55,23 @@ export default function HomeScreen(props: HomeScreenProps) {
       />
 
       <Button
-        title="Login "
+        title="Login"
         onPress={() => {
           props.navigation.navigate("login");
         }}
       />
 
       <Button
-        title="Permission "
+        title="Permission"
         onPress={() => {
           props.navigation.navigate("permission");
+        }}
+      />
+
+      <Button
+        title="Notification"
+        onPress={() => {
+          props.navigation.navigate("notification");
         }}
       />
     </LayoutDefault>
