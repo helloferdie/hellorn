@@ -1,5 +1,6 @@
 import {
   ScrollView as RNScrollView,
+  ScrollViewProps as RNScrollViewProps,
   View as RNView,
   ViewProps as RNViewProps,
 } from "react-native";
@@ -15,8 +16,6 @@ interface BaseProps {
   shrink?: boolean;
 }
 
-interface ViewProps extends RNViewProps, BaseProps {}
-
 function generateClassName<T extends BaseProps>(props: T): string {
   const cls: string[] = [];
   props.fullwidth ? cls.push("w-full") : null;
@@ -24,6 +23,8 @@ function generateClassName<T extends BaseProps>(props: T): string {
   props.shrink ? cls.push(styles.view.shrink) : null;
   return cls.join(" ").trim();
 }
+
+interface ViewProps extends RNViewProps, BaseProps {}
 
 export function View({ children, ...props }: ViewProps) {
   const cls = generateClassName(props);
@@ -34,7 +35,9 @@ export function View({ children, ...props }: ViewProps) {
   );
 }
 
-export function ScrollView({ children, ...props }: ViewProps) {
+interface ScrollViewProps extends RNScrollViewProps, BaseProps {}
+
+export function ScrollView({ children, ...props }: ScrollViewProps) {
   const cls = generateClassName(props);
   return (
     <RNScrollView className={cls} {...props}>

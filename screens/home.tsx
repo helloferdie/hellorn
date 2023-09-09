@@ -74,6 +74,13 @@ export default function HomeScreen(props: HomeScreenProps) {
           props.navigation.navigate("notification");
         }}
       />
+
+      <Button
+        title="Category"
+        onPress={() => {
+          props.navigation.navigate("category");
+        }}
+      />
     </LayoutDefault>
   );
 }
