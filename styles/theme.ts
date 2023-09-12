@@ -1,6 +1,7 @@
 const styles = {
   view: {
-    padded: "p-4",
+    padX: "px-4",
+    padY: "py-4",
     shrink: "mt-4 mx-4",
   },
   button: {

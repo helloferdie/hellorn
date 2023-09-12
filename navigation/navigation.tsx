@@ -12,6 +12,7 @@ import PermissionScreen from "../screens/permission";
 import { navigationRef } from "./RootNavigation";
 import NotificationScreen from "../screens/notification";
 import CategoryScreen from "../screens/category";
+import ExperimentScreen from "../screens/experiment";
 
 export type RootStackParamList = {
   home: undefined;
@@ -22,6 +23,7 @@ export type RootStackParamList = {
   article_new: { mode: string };
   notification: undefined;
   category: undefined;
+  experiment: undefined;
 };
 
 // export type RootStackScreenProps<T extends keyof RootStackParamList> =
@@ -78,6 +80,11 @@ export function NavigationStack() {
         name="category"
         component={CategoryScreen}
         options={{ title: "Category", animation: "slide_from_right" }}
+      />
+      <Stack.Screen
+        name="experiment"
+        component={ExperimentScreen}
+        options={{ title: "Experiment", animation: "slide_from_right" }}
       />
     </Stack.Navigator>
   );

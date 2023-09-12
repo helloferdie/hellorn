@@ -84,7 +84,7 @@ export default function CategoryScreen(_: CategoryScreenProps) {
 
       <View padded>
         <Text className="text-lg font-bold">Account</Text>
-        <Text>
+        <Text className="text-sm">
           {`📸 Photographer & Adventurer 🌍
 📍 Exploring the world, one shot at a time 🌄
 📷 Capturing life's beautiful moments and landscapes 🌿
@@ -115,6 +115,8 @@ export default function CategoryScreen(_: CategoryScreenProps) {
         )}
         onEndReached={loadMoreData}
         onEndReachedThreshold={0.1}
+        // ListHeaderComponent={() => <Text>im header</Text>}
+        // StickyHeaderComponent={() => <Text>im stick header</Text>}
         ListFooterComponent={
           loading ? <ActivityIndicator size="large" /> : null
         }

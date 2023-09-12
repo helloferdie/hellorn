@@ -13,14 +13,27 @@ import {
 interface BaseProps {
   fullwidth?: boolean;
   padded?: boolean;
+  padX?: boolean;
+  padY?: boolean;
   shrink?: boolean;
 }
 
 function generateClassName<T extends BaseProps>(props: T): string {
   const cls: string[] = [];
   props.fullwidth ? cls.push("w-full") : null;
-  props.padded ? cls.push(styles.view.padded) : null;
   props.shrink ? cls.push(styles.view.shrink) : null;
+
+  if (props.padded) {
+    cls.push(styles.view.padX);
+    cls.push(styles.view.padY);
+  } else {
+    if (props.padX) {
+      cls.push(styles.view.padX);
+    }
+    if (props.padY) {
+      cls.push(styles.view.padY);
+    }
+  }
   return cls.join(" ").trim();
 }
 
