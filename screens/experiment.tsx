@@ -3,19 +3,15 @@ import { LayoutDefault } from "../components/layout";
 import { RootStackParamList } from "../navigation/navigation";
 import {
   Tabs,
-  CollapsibleRef,
   MaterialTabBar,
-  TabBarProps,
-  MaterialTabItemProps,
-  useFocusedTab,
-  useCurrentTabScrollY,
   MaterialTabItem,
+  TabBarProps,
 } from "react-native-collapsible-tab-view";
-import { useSharedValue } from "react-native-reanimated";
 import { Text } from "react-native";
-import { ScrollView, View } from "../components/view";
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { View } from "../components/view";
+import { useState } from "react";
 import { Button } from "../components/button";
+import { runOnJS, useAnimatedReaction } from "react-native-reanimated";
 
 type ExperimentScreenProps = NativeStackScreenProps<
   RootStackParamList,
@@ -43,59 +39,62 @@ const Header = () => {
   );
 };
 
-export default function ExperimentScreen(_: ExperimentScreenProps) {
-  const ref = useRef<CollapsibleRef>();
-  const [tabIndex, setTabIndex] = useState(0);
+const TabBar = (props: TabBarProps<string>) => {
+  const [activeIndex, setActiveIndex] = useState(props.index.value);
+  useAnimatedReaction(
+    () => {
+      return props.index.value;
+    },
+    (animValue) => {
+      if (animValue !== activeIndex) {
+        runOnJS(setActiveIndex)(animValue);
+      }
+    },
+    [activeIndex]
+  );
 
   return (
+    <MaterialTabBar
+      {...props}
+      contentContainerStyle={{
+        paddingTop: 6,
+        paddingHorizontal: 16,
+      }}
+      indicatorStyle={{
+        backgroundColor: "transparent",
+      }}
+      scrollEnabled
+      TabItemComponent={(itemProps) => {
+        return (
+          <MaterialTabItem
+            {...itemProps}
+            label={(labelProps) => {
+              return (
+                <Button
+                  label={labelProps.name}
+                  variant={
+                    activeIndex === itemProps.index ? "primary" : "outlined"
+                  }
+                  onPress={() => itemProps.onPress(labelProps.name)}
+                />
+              );
+            }}
+            style={{
+              paddingHorizontal: 0,
+              marginRight:
+                itemProps.index === props.tabNames.length - 1 ? 0 : 8,
+            }}
+          />
+        );
+      }}
+    />
+  );
+};
+
+export default function ExperimentScreen(_: ExperimentScreenProps) {
+  return (
     <LayoutDefault>
-      <Tabs.Container
-        ref={ref}
-        renderHeader={Header}
-        renderTabBar={(props) => {
-          return (
-            <MaterialTabBar
-              {...props}
-              contentContainerStyle={{
-                paddingTop: 6,
-                paddingHorizontal: 16,
-              }}
-              indicatorStyle={{
-                backgroundColor: "transparent",
-              }}
-              TabItemComponent={(itemProps) => {
-                return (
-                  <MaterialTabItem
-                    {...itemProps}
-                    label={(labelProps) => {
-                      return (
-                        <Button
-                          label={labelProps.name}
-                          variant={
-                            tabIndex === itemProps.index
-                              ? "primary"
-                              : "outlined"
-                          }
-                          onPress={() => itemProps.onPress(labelProps.name)}
-                        />
-                      );
-                    }}
-                    style={{
-                      paddingHorizontal: 0,
-                      marginRight:
-                        itemProps.index === props.tabNames.length - 1 ? 0 : 8,
-                    }}
-                  />
-                );
-              }}
-              scrollEnabled
-            />
-          );
-        }}
-        onIndexChange={(index) => {
-          setTabIndex(index);
-        }}
-      >
+      <Tabs.Container renderHeader={Header} renderTabBar={TabBar}>
         <Tabs.Tab name="Post">
           <Tabs.ScrollView>
             <Text>Content A</Text>

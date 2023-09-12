@@ -41,7 +41,7 @@ export default function App() {
           // setInitialRoute(remoteMessage.data.type); // e.g. "Settings"
         }
 
-        console.log(remoteMessage);
+        //console.log(remoteMessage);
         // setLoading(false);
       });
   }, []);
