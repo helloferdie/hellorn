@@ -9,9 +9,8 @@ import {
 } from "react-native-collapsible-tab-view";
 import { Text } from "react-native";
 import { View } from "../components/view";
-import { useState } from "react";
 import { Button } from "../components/button";
-import { runOnJS, useAnimatedReaction } from "react-native-reanimated";
+import { useConvertAnimatedToValue } from "../hooks/reanimated";
 
 type ExperimentScreenProps = NativeStackScreenProps<
   RootStackParamList,
@@ -40,18 +39,7 @@ const Header = () => {
 };
 
 const TabBar = (props: TabBarProps<string>) => {
-  const [activeIndex, setActiveIndex] = useState(props.index.value);
-  useAnimatedReaction(
-    () => {
-      return props.index.value;
-    },
-    (animValue) => {
-      if (animValue !== activeIndex) {
-        runOnJS(setActiveIndex)(animValue);
-      }
-    },
-    [activeIndex]
-  );
+  const activeIndex = useConvertAnimatedToValue(props.index);
 
   return (
     <MaterialTabBar
@@ -80,6 +68,7 @@ const TabBar = (props: TabBarProps<string>) => {
               );
             }}
             style={{
+              height: 50,
               paddingHorizontal: 0,
               marginRight:
                 itemProps.index === props.tabNames.length - 1 ? 0 : 8,
