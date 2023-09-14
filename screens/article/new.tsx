@@ -1,3 +1,4 @@
+import Realm from "realm";
 import { Alert, Text } from "react-native";
 import { LayoutDefault } from "../../components/layout";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
@@ -6,6 +7,7 @@ import { ScrollView, View } from "../../components/view";
 import { TextInputDefault } from "../../components/input";
 import { useState } from "react";
 import { Button } from "../../components/button";
+import { useRealm } from "../../models/config";
 
 type ArticleNewScreenProps = NativeStackScreenProps<
   RootStackParamList,
@@ -19,7 +21,19 @@ const initForm = {
 };
 
 export default function ArticleNewScreen({ route }: ArticleNewScreenProps) {
+  const realm = useRealm();
   const [form, setForm] = useState(initForm);
+
+  const handleSaveForm = () => {
+    realm.write(() => {
+      realm.create("Article", {
+        _id: new Realm.BSON.ObjectId(),
+        ...form,
+      });
+    });
+  };
+
+  //console.log(realm.path);
 
   return (
     <LayoutDefault>
@@ -56,6 +70,7 @@ export default function ArticleNewScreen({ route }: ArticleNewScreenProps) {
             }));
           }}
         />
+        <Text>{realm.path}</Text>
       </ScrollView>
       <View padded>
         <Button
@@ -63,6 +78,7 @@ export default function ArticleNewScreen({ route }: ArticleNewScreenProps) {
           variant="primary"
           onPress={() => {
             Alert.alert("Submit", JSON.stringify(form));
+            handleSaveForm();
             // navigation.navigate("article_new", { mode: "132" });
           }}
         />

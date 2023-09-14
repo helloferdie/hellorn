@@ -3,6 +3,7 @@ import messaging from "@react-native-firebase/messaging";
 import Navigation from "./navigation/navigation";
 import { navigate } from "./navigation/RootNavigation";
 import { Alert } from "react-native";
+import { RealmProvider } from "./models/config";
 
 export default function App() {
   useEffect(() => {
@@ -66,5 +67,9 @@ export default function App() {
     return unsubscribe;
   }, []);
 
-  return <Navigation />;
+  return (
+    <RealmProvider>
+      <Navigation />
+    </RealmProvider>
+  );
 }
