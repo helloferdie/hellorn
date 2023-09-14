@@ -513,6 +513,8 @@ PODS:
   - RealmJS (12.1.0):
     - React
   - RecaptchaInterop (100.0.0)
+  - RNCClipboard (1.11.2):
+    - React-Core
   - RNFBApp (18.3.2):
     - Firebase/CoreOnly (= 10.14.0)
     - React-Core
@@ -617,6 +619,7 @@ DEPENDENCIES:
   - React-utils (from `../node_modules/react-native/ReactCommon/react/utils`)
   - ReactCommon/turbomodule/core (from `../node_modules/react-native/ReactCommon`)
   - RealmJS (from `../node_modules/realm`)
+  - "RNCClipboard (from `../node_modules/@react-native-clipboard/clipboard`)"
   - "RNFBApp (from `../node_modules/@react-native-firebase/app`)"
   - "RNFBAuth (from `../node_modules/@react-native-firebase/auth`)"
   - "RNFBMessaging (from `../node_modules/@react-native-firebase/messaging`)"
@@ -737,6 +740,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon"
   RealmJS:
     :path: "../node_modules/realm"
+  RNCClipboard:
+    :path: "../node_modules/@react-native-clipboard/clipboard"
   RNFBApp:
     :path: "../node_modules/@react-native-firebase/app"
   RNFBAuth:
@@ -820,6 +825,7 @@ SPEC CHECKSUMS:
   ReactCommon: 2f1af14ad4537e654540fcbd827ccc6a7c382522
   RealmJS: 62267ccc7bec0b40dcd5a64cd63a21346648230c
   RecaptchaInterop: 7d1a4a01a6b2cb1610a47ef3f85f0c411434cb21
+  RNCClipboard: 3f0451a8100393908bea5c5c5b16f96d45f30bfc
   RNFBApp: 8060d3ea89359ae78e0d1e6362a8ce9d2f5d19a8
   RNFBAuth: 5db7274fc2d8701b1e9cc3fd76eba677f5260648
   RNFBMessaging: 40f7d8b2dd76b888b38df6baf54898867caef5fe

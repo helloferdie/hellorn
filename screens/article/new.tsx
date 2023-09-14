@@ -1,13 +1,18 @@
 import Realm from "realm";
-import { Alert, Text } from "react-native";
+import { Alert, Pressable, Text } from "react-native";
 import { LayoutDefault } from "../../components/layout";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { RootStackParamList } from "../../navigation/navigation";
 import { ScrollView, View } from "../../components/view";
-import { TextInputDefault } from "../../components/input";
+import {
+  CalculateMaxLinesHeight,
+  CheckMaxLines,
+  TextInputDefault,
+} from "../../components/input";
 import { useState } from "react";
 import { Button } from "../../components/button";
 import { useRealm } from "../../models/config";
+import Clipboard from "@react-native-clipboard/clipboard";
 
 type ArticleNewScreenProps = NativeStackScreenProps<
   RootStackParamList,
@@ -64,13 +69,26 @@ export default function ArticleNewScreen({ route }: ArticleNewScreenProps) {
           multiline
           numberOfLines={5}
           onChangeText={(text) => {
+            if (!CheckMaxLines(text, 5)) {
+              return;
+            }
+
             setForm((prev) => ({
               ...prev,
               content: text,
             }));
           }}
+          style={{
+            height: CalculateMaxLinesHeight(5),
+          }}
         />
-        <Text>{realm.path}</Text>
+        <Pressable
+          onPress={() => {
+            Clipboard.setString(realm.path);
+          }}
+        >
+          <Text>{realm.path}</Text>
+        </Pressable>
       </ScrollView>
       <View padded>
         <Button

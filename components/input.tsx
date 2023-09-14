@@ -18,3 +18,16 @@ export function TextInputDefault({ label, ...props }: InputProps) {
     </View>
   );
 }
+
+// Check max lines usage in onChangeText
+export function CheckMaxLines(text: string, maxLines: number): boolean {
+  if (text.split("\n").length <= maxLines) {
+    return true;
+  }
+  return false;
+}
+
+// Calculate height when max lines is available on iOS
+export function CalculateMaxLinesHeight(maxLines: number): number {
+  return 22.5 * maxLines;
+}
