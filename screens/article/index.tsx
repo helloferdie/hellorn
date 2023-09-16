@@ -5,14 +5,16 @@ import {
 import { LayoutDefault } from "../../components/layout";
 import { RootStackParamList } from "../../navigation/navigation";
 import { Pressable, Text, VirtualizedList } from "react-native";
-import { ScrollView, View } from "../../components/view";
+import { View } from "../../components/view";
 import Divider from "../../components/divider";
-import React, { useEffect, useState } from "react";
+import { memo, useState } from "react";
 import PlusCircleIcon from "react-native-heroicons/solid/PlusCircleIcon";
 import EllipsisHorizontalIcon from "react-native-heroicons/outline/EllipsisHorizontalIcon";
 import { Button, ButtonIcon } from "../../components/button";
 import { ModalDrawer, ModelDrawerItem } from "../../components/modal";
 import { TextInputDefault } from "../../components/input";
+import { useQuery, useRealm } from "../../models/config";
+import { Article } from "../../models/article";
 
 const palette = require("../../styles/palette.ts");
 const articles = [
@@ -94,6 +96,8 @@ function VirtualizedListArticles({ list }: { list: typeof articles }) {
   );
 }
 
+const MemoizedVirtualizedListArticles = memo(VirtualizedListArticles);
+
 type ArticleScreenProps = NativeStackScreenProps<RootStackParamList, "article">;
 
 export function ArticleScreenOpts({
@@ -117,9 +121,20 @@ export function ArticleScreenOpts({
 export default function ArticleScreen({ navigation }: ArticleScreenProps) {
   const [visible, setVisible] = useState(false);
 
+  const items = useQuery(Article);
+
+  //const realm = useRealm();
+  //const items = realm.objects<Article>("Article");
+
+  //items[0].
+  // console.log(item);
+
   return (
     <LayoutDefault>
-      <VirtualizedListArticles list={largeArticles} />
+      {items.map((v, i) => {
+        return <Text key={i}>{v.author}</Text>;
+      })}
+      <MemoizedVirtualizedListArticles list={largeArticles} />
       <View padded>
         <View className="flex-row space-x-2">
           <ButtonIcon

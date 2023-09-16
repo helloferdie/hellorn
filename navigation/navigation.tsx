@@ -13,6 +13,7 @@ import { navigationRef } from "./RootNavigation";
 import NotificationScreen from "../screens/notification";
 import CategoryScreen from "../screens/category";
 import ExperimentScreen from "../screens/experiment";
+import EventScreen from "../screens/event";
 
 export type RootStackParamList = {
   home: undefined;
@@ -24,6 +25,7 @@ export type RootStackParamList = {
   notification: undefined;
   category: undefined;
   experiment: undefined;
+  event: undefined;
 };
 
 // export type RootStackScreenProps<T extends keyof RootStackParamList> =
@@ -85,6 +87,11 @@ export function NavigationStack() {
         name="experiment"
         component={ExperimentScreen}
         options={{ title: "Experiment", animation: "slide_from_right" }}
+      />
+      <Stack.Screen
+        name="event"
+        component={EventScreen}
+        options={{ title: "Event", animation: "slide_from_right" }}
       />
     </Stack.Navigator>
   );

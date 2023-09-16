@@ -3,6 +3,7 @@ import { Button, Pressable, Text } from "react-native";
 import { RootStackParamList } from "../navigation/navigation";
 import { LayoutDefault } from "../components/layout";
 import { useState } from "react";
+import { View } from "../components/view";
 
 type HomeScreenProps = NativeStackScreenProps<RootStackParamList, "home">;
 
@@ -12,28 +13,30 @@ export default function HomeScreen(props: HomeScreenProps) {
   return (
     <LayoutDefault>
       <Text>Home</Text>
-      {[...Array(10)].map((_, i) => (
+      {[...Array(5)].map((_, i) => (
         <Text key={i}>Hello</Text>
       ))}
 
       <Text className="font-bold">{num}</Text>
 
-      <Button
-        title="Click Me"
-        onPress={() => {
-          setNum((prev) => prev + 1);
-        }}
-      />
+      <View className="flex flex-row items-center justify-center">
+        <Button
+          title="Click Me"
+          onPress={() => {
+            setNum((prev) => prev + 1);
+          }}
+        />
+
+        <Button
+          title="Reduce Me"
+          onPress={() => {
+            setNum((prev) => prev - 1);
+          }}
+        />
+      </View>
 
       <Button
-        title="Reduce Me"
-        onPress={() => {
-          setNum((prev) => prev - 1);
-        }}
-      />
-
-      <Button
-        title="Details 2"
+        title="Button - Details 2"
         onPress={() => {
           props.navigation.navigate("details", { itemId: 2 });
         }}
@@ -44,7 +47,7 @@ export default function HomeScreen(props: HomeScreenProps) {
           props.navigation.navigate("details", { itemId: 10 });
         }}
       >
-        <Text>Details 10</Text>
+        <Text>Pressable - Details 10</Text>
       </Pressable>
 
       <Button
@@ -86,6 +89,13 @@ export default function HomeScreen(props: HomeScreenProps) {
         title="Experiment"
         onPress={() => {
           props.navigation.navigate("experiment");
+        }}
+      />
+
+      <Button
+        title="Event"
+        onPress={() => {
+          props.navigation.navigate("event");
         }}
       />
     </LayoutDefault>
