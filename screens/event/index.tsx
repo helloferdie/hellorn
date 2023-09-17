@@ -64,7 +64,7 @@ interface Event {
 const wtf2023: Event = {
   organizer: {
     name: "ISMAYA Live",
-    photo: require("../../assets/logo/ismayalive.png"),
+    photo: require("../../assets/logo/ismayalive.jpg"),
     verified: true,
   },
   banner: require("../../assets/event/wtf2023.png"),
